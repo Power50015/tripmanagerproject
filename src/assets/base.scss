@@ -1,0 +1,36 @@
+@import url(./reset.scss);
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Cairo", sans-serif;
+}
+html,
+body,
+#app {
+  height: 100%;
+
+}
+main {
+  background-image: url(@/assets/SDW.jpg);
+  background-attachment: fixed;
+  background-size: cover;
+  width: 100%;
+  min-height: 100%;
+}
+
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:visited,.btn-primary:disabled {
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+a,
+a:hover,
+a:focus,
+a:visited {
+  color: #dc3545;
+}

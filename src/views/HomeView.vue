@@ -74,13 +74,8 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "Slide",
-};
-</script>
-
-<style scoped>
+<script setup lang="ts"></script>
+<style lang="scss" scoped>
 .slide-cont {
   width: 100%;
 }

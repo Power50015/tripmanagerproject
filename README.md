@@ -1,71 +1,46 @@
-# Taxes Manger APP
+# Resturanty
 
-![Preview Img](screencapture.png)
+This template should help get you started developing with Vue 3 in Vite.
 
-Preview [Preview](https://taxes-manger.netlify.app/)
+## Recommended IDE Setup
 
-## Quickstart
+[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.vscode-typescript-vue-plugin).
 
-1. Install the [node.js](https://nodejs.org/en/)
-2. Clone the project
+## Type Support for `.vue` Imports in TS
 
-    ```bash
-    git clone https://Power50015@bitbucket.org/Power50015/taxes-manger.git
-    ```
-3. Create firebase database (firestore & firebase Authentication)
-4. Create firebase APP 
-5. Go to project folder and add firebase app data to .env.example Template file and remove .example from the file name
-3. Go run
+TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
 
-    ```bash
-    npm install
-    ```
+If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
 
-4. Start development mode
+1. Disable the built-in TypeScript Extension
+    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
+    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
+2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
 
-    ```bash
-    npm run serve
-    ```
+## Customize configuration
 
-5. In browser open page with address [http://localhost:8000/](http://localhost:8000/)
+See [Vite Configuration Reference](https://vitejs.dev/config/).
 
-### Main tasks
+## Project Setup
 
-- npm run serve -  launches watchers and server & compile project.
-- npm run build - optimize & minify files for production version.
+```sh
+npm install
+```
 
-## INTRODUCTION & FEATURE
+### Compile and Hot-Reload for Development
 
-Creative & Modern site is a perfect template for Business Startups, web
-studio and creative agencies. This is multi page for placing your
-information. All files and code has been well organized and nicely commented for easy to customize.
+```sh
+npm run dev
+```
 
+### Type-Check, Compile and Minify for Production
 
-## MAIN FEATURES :
+```sh
+npm run build
+```
 
-- Valid HTML5, CSS3.
-- Single Page APP.
-- Vue 3 Composition.
-- Fully Customizable.
-- Clean Code.
-- Fully Responsive.
+### Lint with [ESLint](https://eslint.org/)
 
-
-## FILES INCLUDED :
-
-- Vue Files.
-- JS Files.
-
-## Credits
-
-- Vue 3
-- VueX 4
-- Vue CLI
-- Vue Router
-- Bootstrab 5
-- Google Fonts 
-
-## Support:
-
-- If you need any help using the file or need special customizing please contact me via my Github or my Website.
-- If you like my html template, please follwo me , We’ll appreciate it very much Thank you.
+```sh
+npm run lint
+```
