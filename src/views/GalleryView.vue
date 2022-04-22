@@ -115,6 +115,7 @@ function addImage() {
         imgURL.value = "";
         imgPreview.value = "";
         imgUpload.value = 0;
+        getImageData();
       });
     }
   );
