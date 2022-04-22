@@ -34,10 +34,7 @@ const db = getFirestore();
 const unsub = await onAuthStateChanged(auth, async (user) => {
   const auth = useAuthStore();
   if (user) {
-    const q = query(
-      collection(db, "admin"),
-      where("email", "==", user.email)
-    );
+    const q = query(collection(db, "admin"), where("email", "==", user.email));
 
     const querySnapshot = await getDocs(q);
 
@@ -68,7 +65,7 @@ export const useAuthStore = defineStore({
   state: () => ({
     isloaded: false,
     isLogin: false,
-    id:"",
+    id: "",
     name: "",
     email: "",
     des: "",
@@ -79,7 +76,7 @@ export const useAuthStore = defineStore({
     startTime: 0,
     endTime: 0,
     map: "",
-    
+
     fileUpload: 0,
   }),
   actions: {
@@ -112,7 +109,7 @@ export const useAuthStore = defineStore({
             phone: phone,
             startTime: startTime,
             endTime: endTime,
-            map: map
+            map: map,
           }).then((user) => {
             this.isLogin = true;
             this.id = user.id;
@@ -142,10 +139,7 @@ export const useAuthStore = defineStore({
       this.isloaded = false;
       signInWithEmailAndPassword(auth, email, password)
         .then(async () => {
-          const q = query(
-            collection(db, "admin"),
-            where("email", "==", email)
-          );
+          const q = query(collection(db, "admin"), where("email", "==", email));
 
           const querySnapshot = await getDocs(q);
           querySnapshot.forEach((doc) => {
@@ -176,7 +170,7 @@ export const useAuthStore = defineStore({
     logout() {
       signOut(auth).then(() => {
         this.isLogin = false;
-        this.id="";
+        this.id = "";
         this.name = "";
         this.email = "";
         this.adrres = "";
@@ -196,11 +190,10 @@ export const useAuthStore = defineStore({
       adrres: string,
       phone: string,
       img: string,
-      startTime:number,
-      endTime:number,
-      map:string
+      startTime: number,
+      endTime: number,
+      map: string
     ) {
-
       await setDoc(doc(db, "admin", this.id), {
         name: name,
         email: this.email,
@@ -224,28 +217,11 @@ export const useAuthStore = defineStore({
         this.map = map;
       });
     },
-    async uploadFile(file: any) {
-      const fileData = file[0];
-
-      const storageRef = ref(storage, `${fileData.name}`);
-      const uploadTask = uploadBytesResumable(storageRef, fileData);
-
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          this.fileUpload = Math.floor(
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-          );
-        },
-        (error) => {
-          alert(error);
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then((URL) => {
-            return URL;
-          });
-        }
-      );
+    addImage(img: string): any {
+      addDoc(collection(db, "image"), {
+        user:this.email,
+        img: img,
+      });
     },
   },
 });

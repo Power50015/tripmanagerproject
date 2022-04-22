@@ -37,7 +37,7 @@
               >
             </li>
             <li class="nav-item" v-if="auth.isLogin">
-              <router-link to="/register" class="nav-link"
+              <router-link to="/gallery" class="nav-link"
                 >معرض الصور</router-link
               >
             </li>

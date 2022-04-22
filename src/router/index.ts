@@ -24,15 +24,10 @@ const router = createRouter({
       component: () => import("../views/ProfileView.vue"),
     },
     {
-      path: "/menu",
-      name: "Menu",
-      component: () => import("../views/MenuView.vue"),
-    },
-    {
-      path: "/addmenu",
-      name: "AddMenu",
-      component: () => import("../views/AddMenuView.vue"),
-    },
+      path:"/gallery",
+      name:"gallery",
+      component: () => import("../views/GalleryView.vue"),
+    }
   ],
 });
 
