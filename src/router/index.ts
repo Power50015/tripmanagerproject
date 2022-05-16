@@ -19,15 +19,20 @@ const router = createRouter({
       component: () => import("../views/RegisterView.vue"),
     },
     {
-      path: "/profile",
-      name: "profile",
-      component: () => import("../views/ProfileView.vue"),
-    },
-    {
       path:"/gallery",
       name:"gallery",
       component: () => import("../views/GalleryView.vue"),
-    }
+    },
+    {
+      path: "/admin-login",
+      name: "admin-login",
+      component: () => import("../views/AdminLoginView.vue"),
+    },
+    {
+      path: "/trips",
+      name: "trips",
+      component: () => import("../views/TripsView.vue"),
+    },
   ],
 });
 

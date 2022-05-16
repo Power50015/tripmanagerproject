@@ -239,7 +239,7 @@ function savePlace() {
         endTime.value = 0;
         map.value = "";
         btn.value = false;
-        router.push("/profile");
+        router.push("/");
       });
     }
   );

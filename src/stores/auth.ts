@@ -26,6 +26,7 @@ import {
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
+
 const auth = getAuth();
 const storage = getStorage();
 const db = getFirestore();
@@ -38,21 +39,39 @@ const unsub = await onAuthStateChanged(auth, async (user) => {
 
     const querySnapshot = await getDocs(q);
 
-    await querySnapshot.forEach((doc) => {
-      auth.isLogin = true;
-      auth.id = doc.id;
-      auth.name = doc.data().name;
-      auth.email = doc.data().email;
-      auth.adrres = doc.data().adrres;
-      auth.area = doc.data().area;
-      auth.des = doc.data().des;
-      auth.img = doc.data().img;
-      auth.phone = doc.data().phone;
-      auth.startTime = doc.data().startTime;
-      auth.endTime = doc.data().endTime;
-      auth.map = doc.data().map;
-      auth.isloaded = true;
-    });
+    if (querySnapshot.empty) {
+      const q = query(
+        collection(db, "adminA"),
+        where("email", "==", user.email)
+      );
+
+      const querySnapshot = await getDocs(q);
+
+      await querySnapshot.forEach((doc) => {
+        auth.isLogin = true;
+        auth.name = doc.data().name;
+        auth.email = doc.data().email;
+        auth.isloaded = true;
+        auth.type = "admin";
+      });
+    } else {
+      await querySnapshot.forEach((doc) => {
+        auth.isLogin = true;
+        auth.id = doc.id;
+        auth.name = doc.data().name;
+        auth.email = doc.data().email;
+        auth.adrres = doc.data().adrres;
+        auth.area = doc.data().area;
+        auth.des = doc.data().des;
+        auth.img = doc.data().img;
+        auth.phone = doc.data().phone;
+        auth.startTime = doc.data().startTime;
+        auth.endTime = doc.data().endTime;
+        auth.map = doc.data().map;
+        auth.isloaded = true;
+        auth.type = "user";
+      });
+    }
   } else {
     auth.isloaded = true;
   }
@@ -76,6 +95,7 @@ export const useAuthStore = defineStore({
     startTime: 0,
     endTime: 0,
     map: "",
+    type: "",
 
     fileUpload: 0,
   }),
@@ -124,6 +144,7 @@ export const useAuthStore = defineStore({
             this.endTime = endTime;
             this.map = map;
             this.isloaded = true;
+            this.type = "user";
           });
         })
         .catch((error) => {
@@ -157,6 +178,7 @@ export const useAuthStore = defineStore({
             this.endTime = doc.data().endTime;
             this.map = doc.data().map;
             auth.isloaded = true;
+            this.type = "user";
           });
         })
         .catch((error) => {
@@ -181,6 +203,7 @@ export const useAuthStore = defineStore({
         this.startTime = 0;
         this.endTime = 0;
         this.map = "";
+        this.type = "";
       });
     },
     async editUser(
@@ -219,9 +242,31 @@ export const useAuthStore = defineStore({
     },
     addImage(img: string): any {
       addDoc(collection(db, "image"), {
-        user:this.email,
+        user: this.email,
         img: img,
       });
+    },
+    loginAdmin(email: string, password: string) {
+      this.isloaded = false;
+      signInWithEmailAndPassword(auth, email, password)
+        .then(async () => {
+          const q = query(collection(db, "adminA"), where("email", "==", email));
+          const querySnapshot = await getDocs(q);
+          querySnapshot.forEach((doc) => {
+            this.isLogin = true;
+            this.name = doc.data().name;
+            this.email = doc.data().email;
+            this.isloaded = true;
+            this.type = "admin";
+          });
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorCode);
+          console.log(errorMessage);
+          this.isloaded = true;
+        });
     },
   },
 });

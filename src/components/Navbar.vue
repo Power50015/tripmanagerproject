@@ -2,11 +2,8 @@
   <header>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
       <div class="container-fluid">
-        <router-link class="navbar-brand" to="/profile" v-if="auth.isLogin">
-        <img src="@/assets/logo.png" width="100" alt="" srcset="">
-        </router-link>
-        <router-link class="navbar-brand" to="/" v-if="!auth.isLogin">
-        <img src="@/assets/logo.png" width="100" alt="" srcset="">
+        <router-link class="navbar-brand" to="/">
+          <img src="@/assets/logo.png" width="100" alt="" srcset="" />
         </router-link>
         <button
           class="navbar-toggler"
@@ -31,18 +28,25 @@
                 >عمل حساب جديد</router-link
               >
             </li>
-            <li class="nav-item" v-if="auth.isLogin">
+            <li class="nav-item" v-if="!auth.isLogin">
+              <router-link to="/admin-login" class="nav-link"
+                >الدخول كأدمن</router-link
+              >
+            </li>
+            <li class="nav-item" v-if="auth.type == 'user'">
               <router-link to="/profile" class="nav-link"
                 >الصفحه الشخصيه</router-link
               >
             </li>
-            <li class="nav-item" v-if="auth.isLogin">
+            <li class="nav-item" v-if="auth.type == 'user'">
               <router-link to="/gallery" class="nav-link"
                 >معرض الصور</router-link
               >
             </li>
             <li class="nav-item" v-if="auth.isLogin">
-              <button @click="auth.logout" class="btn btn-danger">تسجيل الخروج</button>
+              <button @click="logout" class="btn btn-danger">
+                تسجيل الخروج
+              </button>
             </li>
           </ul>
         </div>
@@ -52,5 +56,12 @@
 </template>
 <script setup lang="ts">
 import { useAuthStore } from "@/stores/auth";
+import { useRouter } from "vue-router";
 const auth = useAuthStore();
+const router = useRouter();
+
+function logout() {
+  auth.logout();
+  router.push("/");
+}
 </script>
