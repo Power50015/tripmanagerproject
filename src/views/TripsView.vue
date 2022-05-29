@@ -11,6 +11,8 @@
                 <th scope="col">المكان السياحى</th>
                 <th scope="col">تاريخ الذهاب</th>
                 <th scope="col">تاريخ العوده</th>
+                <th scope="col">مواعيد العمل من</th>
+                <th scope="col">مواعيد العمل إلى</th>
               </tr>
             </thead>
             <tbody>
@@ -21,6 +23,8 @@
                   {{ date(data.dateFrom) }}
                 </th>
                 <th>{{ date(data.dateTo)  }}</th>
+                <th>{{ data.trip["startTime"] }}</th>
+                <th>{{ data.trip["endTime"] }}</th>
               </tr>
             </tbody>
           </table>
