@@ -11,8 +11,6 @@
                 <th scope="col">المكان السياحى</th>
                 <th scope="col">تاريخ الذهاب</th>
                 <th scope="col">تاريخ العوده</th>
-                <th scope="col">مواعيد العمل من</th>
-                <th scope="col">مواعيد العمل إلى</th>
               </tr>
             </thead>
             <tbody>
@@ -20,11 +18,9 @@
                 <th>{{ data.userName }}</th>
                 <th>{{ data.trip["name"] }}</th>
                 <th>
-                  {{ date(data.dateFrom) }}
+                  {{ data.atTime }}
                 </th>
-                <th>{{ date(data.dateTo)  }}</th>
-                <th>{{ data.trip["startTime"] }}</th>
-                <th>{{ data.trip["endTime"] }}</th>
+                <th>{{ data.toTime }}</th>
               </tr>
             </tbody>
           </table>
@@ -54,13 +50,16 @@ const auth = useAuthStore();
 const db = getFirestore();
 
 const adminData = reactive([]);
+
 getImageData();
 async function getImageData() {
-  const q = query(collection(db, "myTrips"),orderBy("dateFrom"));
+  const q = query(collection(db, "myTrips"), orderBy("atTime"));
 
   const querySnapshot = await getDocs(q);
 
   querySnapshot.forEach((doc) => {
+    console.log(doc.data());
+    
     adminData.push(doc.data());
   });
 }
